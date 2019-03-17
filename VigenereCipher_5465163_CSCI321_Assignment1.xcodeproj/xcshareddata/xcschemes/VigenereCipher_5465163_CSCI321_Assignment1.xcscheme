@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1010"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F1E3A3AE223C035A003B0C1E"
+               BuildableName = "VigenereCipher_5465163_CSCI321_Assignment1"
+               BlueprintName = "VigenereCipher_5465163_CSCI321_Assignment1"
+               ReferencedContainer = "container:VigenereCipher_5465163_CSCI321_Assignment1.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F1E3A3AE223C035A003B0C1E"
+            BuildableName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            BlueprintName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            ReferencedContainer = "container:VigenereCipher_5465163_CSCI321_Assignment1.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/fawazsidd/Documents/SPRING2019/CSCI361/VigenereCipher_5465163_CSCI321_Assignment1/VigenereCipher_5465163_CSCI321_Assignment1"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F1E3A3AE223C035A003B0C1E"
+            BuildableName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            BlueprintName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            ReferencedContainer = "container:VigenereCipher_5465163_CSCI321_Assignment1.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F1E3A3AE223C035A003B0C1E"
+            BuildableName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            BlueprintName = "VigenereCipher_5465163_CSCI321_Assignment1"
+            ReferencedContainer = "container:VigenereCipher_5465163_CSCI321_Assignment1.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
