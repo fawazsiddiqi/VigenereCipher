@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <ctime>
 using namespace std;
 
 //*******************************************************************************************
@@ -28,9 +29,12 @@ void findPlainText(vector<bitset<8>> KEY,vector<vector<bitset<8>>>& plaintext,ve
 
 
 int main()
-{   //*******************************************************************************************
+{
+    //*******************************************************************************************
     // INITALIZATIONS
     //*******************************************************************************************
+    clock_t start;
+    double duration;
     int keySize=0;
     int countCipherText;
     int countPlainText=0;
@@ -43,7 +47,7 @@ int main()
     vector<bitset<8>> characters;
     vector<bitset<8>> KEY;
     //*******************************************************************************************
-   
+    start = clock();
     characters=read_file("new-extended-given-ciphertext.txt",countCipherText); //reading the file and storing the ciphertext into a vector
     
     for(int size=1;size<characters.size() && size<101;size++){ //Calculating and displaying IC for each and every keysize
@@ -151,6 +155,9 @@ int main()
             }
         }
         cout<<endl;
+    duration = (clock() - start ) / (double) CLOCKS_PER_SEC;
+    cout << "Code executed in " << duration << "s" <<endl;
+    return 0;
 }
 
 bitset<4> hex_char_to_bin(char c){
