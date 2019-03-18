@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/fawazsidd/Documents/SPRING2019/CSCI361/VigenereCipher_5465163_CSCI321_Assignment1/VigenereCipher_5465163_CSCI321_Assignment1"
+      customWorkingDirectory = "/Users/fawazsidd/Documents/SPRING2019/CSCI361/VigenereCipher_5465163_CSCI361_Assignment1/VigenereCipher_5465163_CSCI321_Assignment1"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

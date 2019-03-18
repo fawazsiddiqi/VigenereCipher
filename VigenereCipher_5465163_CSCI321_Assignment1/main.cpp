@@ -16,7 +16,7 @@ using namespace std;
 //FUNCTIONS
 //*******************************************************************************************
 bitset<4> hex_char_to_bin(char c);
-vector<bitset<8>> read_file(string filename);
+vector<bitset<8>> read_file(string filename,int &cntCT);
 void findSpaces(vector<pair<int,int>>&elocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted);
 void display(vector<bitset<8>>A);
 vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters);
@@ -38,7 +38,8 @@ int main()
     vector<vector<bitset<8>>> extractedCharacters;
     vector<bitset<8>> characters;
     vector<bitset<8>> KEY;
-    characters=read_file("new-extended-given-ciphertext.txt");
+    int cntCT;
+    characters=read_file("new-extended-given-ciphertext.txt",cntCT);
     //display(characters);
         
     for(int size=1;size<characters.size() && size<101;size++){
@@ -99,15 +100,14 @@ int main()
     findPlainText(KEY, plaintext, extractedCharacters);
 
     char characterrr;
-
+    int cntPT=0;
     for(int i=0;i<plaintext.at(0).size();i++){
         for(int j=0;j<KEY.size();j++)
         {
-            if(i<plaintext.at(j).size()){
+            if(i<plaintext.at(j).size() && cntPT<=cntCT){
                 characterrr=(char)(plaintext.at(j).at(i).to_ulong());
-                if((int)characterrr<0||(int)characterrr>1270) ;//cout<<"[]";
-                else cout<<characterrr;
-
+                cout<<characterrr;
+                cntPT++;
             }
         }
     }
@@ -136,15 +136,14 @@ int main()
     }
         findPlainText(KEY, plaintext, extractedCharacters);
     
-    
+        cntPT=0;
         for(int i=0;i<plaintext.at(0).size();i++){
             for(int j=0;j<KEY.size();j++)
             {
-                if(i<plaintext.at(j).size()){
+                if(i<plaintext.at(j).size()&&cntPT<=cntCT){
                     characterrr=(char)(plaintext.at(j).at(i).to_ulong());
-                    if((int)characterrr<0||(int)characterrr>1270) ;//cout<<"[]";
-                    else cout<<characterrr;
-    
+                    cout<<characterrr;
+                    cntPT++;
                 }
             }
         }
@@ -175,13 +174,14 @@ bitset<4> hex_char_to_bin(char c){
     }
     return bitset<4>("0000");
 }
-vector<bitset<8>> read_file(string filename){
+vector<bitset<8>> read_file(string filename,int &cntCT){
     fstream file;
     char character1;
     char character2;
     string result;
     vector<bitset<8>> characters;
     file.open(filename,ios::in);
+    int count=0;
     if(file.fail()){
         cout<<"File not found"<<endl;
     }else{
@@ -189,7 +189,10 @@ vector<bitset<8>> read_file(string filename){
             file>>character2;
             result=hex_char_to_bin(character1).to_string()+hex_char_to_bin(character2).to_string();
             characters.push_back(bitset<8>(result));
+            count++;
         }
+        cout<<"COUNT: "<<count<<endl;
+        cntCT=count;
         file.close();
     }
     
