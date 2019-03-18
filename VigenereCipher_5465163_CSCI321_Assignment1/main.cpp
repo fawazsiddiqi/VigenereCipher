@@ -181,29 +181,6 @@ int main()
 //*******************************************************************************************
 //*******************************************************************************************
 
-bitset<4> hex_char_to_bin(char c){
-    // TODO handle default / error
-    switch(toupper(c))
-    {
-        case '0': return bitset<4>("0000");
-        case '1': return bitset<4>("0001");
-        case '2': return bitset<4>("0010");
-        case '3': return bitset<4>("0011");
-        case '4': return bitset<4>("0100");
-        case '5': return bitset<4>("0101");
-        case '6': return bitset<4>("0110");
-        case '7': return bitset<4>("0111");
-        case '8': return bitset<4>("1000");
-        case '9': return bitset<4>("1001");
-        case 'A': return bitset<4>("1010");
-        case 'B': return bitset<4>("1011");
-        case 'C': return bitset<4>("1100");
-        case 'D': return bitset<4>("1101");
-        case 'E': return bitset<4>("1110");
-        case 'F': return bitset<4>("1111");
-    }
-    return bitset<4>("0000");
-}
 
 vector<bitset<8>> read_file(string filename,int &countCipherText){
     fstream file;
@@ -229,6 +206,30 @@ vector<bitset<8>> read_file(string filename,int &countCipherText){
         file.close();
     }
     return characters;
+}
+
+bitset<4> hex_char_to_bin(char c){
+    // TODO handle default / error
+    switch(toupper(c))
+    {
+        case '0': return bitset<4>("0000");
+        case '1': return bitset<4>("0001");
+        case '2': return bitset<4>("0010");
+        case '3': return bitset<4>("0011");
+        case '4': return bitset<4>("0100");
+        case '5': return bitset<4>("0101");
+        case '6': return bitset<4>("0110");
+        case '7': return bitset<4>("0111");
+        case '8': return bitset<4>("1000");
+        case '9': return bitset<4>("1001");
+        case 'A': return bitset<4>("1010");
+        case 'B': return bitset<4>("1011");
+        case 'C': return bitset<4>("1100");
+        case 'D': return bitset<4>("1101");
+        case 'E': return bitset<4>("1110");
+        case 'F': return bitset<4>("1111");
+    }
+    return bitset<4>("0000");
 }
 
 int mostFreq(vector<bitset<8>> col){
