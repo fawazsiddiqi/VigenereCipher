@@ -20,7 +20,7 @@ using namespace std;
 bitset<4> hex_char_to_bin(char c);
 vector<bitset<8>> read_file(string filename,int &countCipherText);
 void findCommon(vector<pair<int,int>>&eLocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted);
-vector<vector<bitset<8>>> segregateCiphertoKey(int size,vector<bitset<8>> characters);
+vector<vector<bitset<8>>> segregateExtract(int size,vector<bitset<8>> characters);
 int findFrequency(bitset<8> character,vector<bitset<8>>);
 int sum(int size,vector<bitset<8>> characters,vector<vector<bitset<8>>> extractedCharacters);
 double calculateIC(int F,int N);
@@ -53,7 +53,7 @@ int main()
     cout << "********************** IC CALCULATION **********************" <<endl;
     for(int size=1;size<characters.size() && size<101;size++){ //Calculating and displaying IC for each and every keysize
         extractedCharacters.clear();
-        extractedCharacters=segregateCiphertoKey(size, characters);
+        extractedCharacters=segregateExtract(size, characters);
         cout<<"IC: "<<calculateIC(sum(size,characters,extractedCharacters), (int)characters.size())<<" For key size: "<<size<<endl;
            
     }
@@ -63,7 +63,7 @@ int main()
     
     cout << endl;
     
-    extractedCharacters=segregateCiphertoKey(keySize,characters); //the extracted characters are then extracted into columns which correspond to the poition according to the keysize
+    extractedCharacters=segregateExtract(keySize,characters); //the extracted characters are then extracted into columns which correspond to the poition according to the keysize
   
     //*******************************************************************************************
     //INITIALIZING PLAINTEXT AND KEY
@@ -261,7 +261,7 @@ void findCommon(vector<pair<int,int>>&eLocations ,vector<pair<int,int>>&spaceLoc
     }
 }
 
-vector<vector<bitset<8>>> segregateCiphertoKey(int size,vector<bitset<8>> characters){
+vector<vector<bitset<8>>> segregateExtract(int size,vector<bitset<8>> characters){
     vector<vector<bitset<8>>> temp;
     int pos=0;
     for(int i=0;i<size;i++){
