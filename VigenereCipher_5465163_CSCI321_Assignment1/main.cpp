@@ -13,12 +13,12 @@
 #include <fstream>
 using namespace std;
 
+//*******************************************************************************************
 //FUNCTIONS
 //*******************************************************************************************
 bitset<4> hex_char_to_bin(char c);
 vector<bitset<8>> read_file(string filename,int &countCipherText);
-void findSpaces(vector<pair<int,int>>&elocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted);
-void display(vector<bitset<8>>A);
+void findCommon(vector<pair<int,int>>&eLocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted);
 vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters);
 int findFrequency(bitset<8> character,vector<bitset<8>>);
 int sum(int size,vector<bitset<8>> characters,vector<vector<bitset<8>>> extractedCharacters);
@@ -28,9 +28,11 @@ void findPlainText(vector<bitset<8>> KEY,vector<vector<bitset<8>>>& plaintext,ve
 
 
 int main()
-{
+{   //*******************************************************************************************
+    // INITALIZATIONS
+    //*******************************************************************************************
     int keySize=0;
-    int countCipherText=0;
+    int countCipherText;
     int countPlainText=0;
     char dispCharacter;
     vector<pair<bitset<8>,double>> frequency_table;
@@ -40,11 +42,11 @@ int main()
     vector<vector<bitset<8>>> extractedCharacters;
     vector<bitset<8>> characters;
     vector<bitset<8>> KEY;
+    //*******************************************************************************************
+   
+    characters=read_file("new-extended-given-ciphertext.txt",countCipherText); //reading the file and storing the ciphertext into a vector
     
-    
-    
-    characters=read_file("new-extended-given-ciphertext.txt",countCipherText);
-    for(int size=1;size<characters.size() && size<101;size++){
+    for(int size=1;size<characters.size() && size<101;size++){ //Calculating and displaying IC for each and every keysize
         extractedCharacters.clear();
         extractedCharacters=extract(size, characters);
           
@@ -52,10 +54,11 @@ int main()
            
     }
     cout<<"Enter key size\n";
-    cin>>keySize;
-    extractedCharacters=extract(keySize,characters);
-  
+    cin>>keySize;  //user enters most likely keysize
     
+    extractedCharacters=extract(keySize,characters); //the extracted characters are then extracted into columns which correspond to the poition according to the keysize
+  
+    //*******************************************************************************************
     //INITIALIZING PLAINTEXT AND KEY
     //*******************************************************************************************
     for(int i=0;i<extractedCharacters.size();i++){
@@ -68,23 +71,20 @@ int main()
         KEY.push_back(NULL);
     }
     
-    
     //*******************************************************************************************
     //FINDING SPACES
     //*******************************************************************************************
-    findSpaces(eLocations,spaceLocations, extractedCharacters);
+    findCommon(eLocations,spaceLocations, extractedCharacters);
     
     for(int i=0;i<spaceLocations.size();i++){
         int f=spaceLocations.at(i).first;
         int s=spaceLocations.at(i).second;
         plaintext.at(f).at(s)=bitset<8>(32);
-        KEY.at(f)=bitset<8>(32)^extractedCharacters.at(f).at(s);
+        KEY.at(f)=bitset<8>(32)^extractedCharacters.at(f).at(s); // finding the key
     }
- 
-
     //*******************************************************************************************
     
-    cout<<"KEY: ";
+    cout<<"KEY: "; //Getting the key
     for(int i=0;i<KEY.size();i++){
         if(i==0)
         {
@@ -99,8 +99,9 @@ int main()
         }
    }
 
-    findPlainText(KEY, plaintext, extractedCharacters);
-    for(int i=0;i<plaintext.at(0).size();i++){
+    findPlainText(KEY, plaintext, extractedCharacters); //finding the plaintext
+   
+    for(int i=0;i<plaintext.at(0).size();i++){ //displaying the plaintext
         for(int j=0;j<KEY.size();j++)
         {
             if(i<plaintext.at(j).size() && countPlainText<=countCipherText){
@@ -113,16 +114,15 @@ int main()
     cout<<endl;
     
     
-    string partOfText="In Ethereum, smart contracts are written in the programming";
+    string partOfText="In Ethereum, smart contracts are written in the "; //the first 48 characters of the plaintext  and guessing the right letters
         
 
-        for(int i=0;i<1;i++){
+        for(int i=0;i<1;i++){ //Getting the key for the guess plaintext
             for(int j=0;j<KEY.size();j++)
             {
                 KEY.at(j)=bitset<8>((int)(partOfText.at(j)))^extractedCharacters.at(j).at(i);
             }
         }
-
     cout<<"KEY: ";
     for(int i=0;i<KEY.size();i++){
         if(i==0)
@@ -138,12 +138,12 @@ int main()
         }
     }
     
-        findPlainText(KEY, plaintext, extractedCharacters);
+        findPlainText(KEY, plaintext, extractedCharacters); //finding the new final plaintext
         countPlainText=0;
         for(int i=0;i<plaintext.at(0).size();i++){
             for(int j=0;j<KEY.size();j++)
             {
-                if(i<plaintext.at(j).size()&&countPlainText<=countCipherText){
+                if(i<plaintext.at(j).size()&&countPlainText<=countCipherText){ //displaying the plaintext
                     dispCharacter=(char)(plaintext.at(j).at(i).to_ulong());
                     cout<<dispCharacter;
                     countPlainText++;
@@ -214,7 +214,7 @@ int mostFreq(vector<bitset<8>> col){
     return largest;
 }
 
-void findSpaces(vector<pair<int,int>>&elocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted){
+void findCommon(vector<pair<int,int>>&eLocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted){
     int largest;
     pair<int,int>P;
     for(int i=0;i<extracted.size();i++){
@@ -240,21 +240,12 @@ vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters){
         pos=0;
         for(int j=i;j<i+size;j++){
             temp.at(pos).push_back(characters[j]);
-            //cout<<"Placing character "<<j<<" in array "<<pos<<endl;
             pos++;
         }
     }
     return temp;
 }
 
-void display(vector<bitset<8>>A){
-    
-    for (int i =0; i<A.size(); i++)
-    {
-        cout <<A[i]<<endl;
-    }
-    
-}
 
 int findFrequency(bitset<8> character,vector<bitset<8>>characters){
     int count=0;
