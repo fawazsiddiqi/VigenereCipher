@@ -16,7 +16,7 @@ using namespace std;
 //FUNCTIONS
 //*******************************************************************************************
 bitset<4> hex_char_to_bin(char c);
-vector<bitset<8>> read_file(string filename,int &cntCT);
+vector<bitset<8>> read_file(string filename,int &countCipherText);
 void findSpaces(vector<pair<int,int>>&elocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted);
 void display(vector<bitset<8>>A);
 vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters);
@@ -29,8 +29,10 @@ void findPlainText(vector<bitset<8>> KEY,vector<vector<bitset<8>>>& plaintext,ve
 
 int main()
 {
-    
-    int keySize;
+    int keySize=0;
+    int countCipherText=0;
+    int countPlainText=0;
+    char dispCharacter;
     vector<pair<bitset<8>,double>> frequency_table;
     vector<vector<bitset<8>>> plaintext;
     vector<pair<int,int>> spaceLocations;
@@ -38,10 +40,10 @@ int main()
     vector<vector<bitset<8>>> extractedCharacters;
     vector<bitset<8>> characters;
     vector<bitset<8>> KEY;
-    int cntCT;
-    characters=read_file("new-extended-given-ciphertext.txt",cntCT);
-    //display(characters);
-        
+    
+    
+    
+    characters=read_file("new-extended-given-ciphertext.txt",countCipherText);
     for(int size=1;size<characters.size() && size<101;size++){
         extractedCharacters.clear();
         extractedCharacters=extract(size, characters);
@@ -52,7 +54,8 @@ int main()
     cout<<"Enter key size\n";
     cin>>keySize;
     extractedCharacters=extract(keySize,characters);
-    int count=0;
+  
+    
     //INITIALIZING PLAINTEXT AND KEY
     //*******************************************************************************************
     for(int i=0;i<extractedCharacters.size();i++){
@@ -64,8 +67,9 @@ int main()
     for(int i=0;i<keySize;i++){
         KEY.push_back(NULL);
     }
-    //*******************************************************************************************
     
+    
+    //*******************************************************************************************
     //FINDING SPACES
     //*******************************************************************************************
     findSpaces(eLocations,spaceLocations, extractedCharacters);
@@ -83,31 +87,26 @@ int main()
     cout<<"KEY: ";
     for(int i=0;i<KEY.size();i++){
         if(i==0)
+        {
             cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
+        }
         else if(i==KEY.size()-1)
+        {
             cout<<""<<(char)(KEY.at(i).to_ulong())<<"\n";
-        else cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
-
+        }
+        else {
+            cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
+        }
    }
-//    KEY[0]=bitset<8>(((int)'l'));
-//    KEY[10]=bitset<8>(((int)'r'));
-//    KEY[15]=bitset<8>(((int)'o'));
-//    KEY[17]=bitset<8>(((int)'r'));
-//    KEY[36]=bitset<8>(((int)'i'));
-//
-//
-//
-    findPlainText(KEY, plaintext, extractedCharacters);
 
-    char characterrr;
-    int cntPT=0;
+    findPlainText(KEY, plaintext, extractedCharacters);
     for(int i=0;i<plaintext.at(0).size();i++){
         for(int j=0;j<KEY.size();j++)
         {
-            if(i<plaintext.at(j).size() && cntPT<=cntCT){
-                characterrr=(char)(plaintext.at(j).at(i).to_ulong());
-                cout<<characterrr;
-                cntPT++;
+            if(i<plaintext.at(j).size() && countPlainText<=countCipherText){
+                dispCharacter=(char)(plaintext.at(j).at(i).to_ulong());
+                cout<<dispCharacter;
+                countPlainText++;
             }
         }
     }
@@ -120,35 +119,38 @@ int main()
         for(int i=0;i<1;i++){
             for(int j=0;j<KEY.size();j++)
             {
-                //cout<<i<<" "<<j<<endl;
                 KEY.at(j)=bitset<8>((int)(partOfText.at(j)))^extractedCharacters.at(j).at(i);
-
             }
         }
+
     cout<<"KEY: ";
     for(int i=0;i<KEY.size();i++){
         if(i==0)
+        {
             cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
+        }
         else if(i==KEY.size()-1)
+        {
             cout<<""<<(char)(KEY.at(i).to_ulong())<<"\n";
-        else cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
-
+        }
+        else {
+            cout<<""<<(char)(KEY.at(i).to_ulong())<<"";
+        }
     }
-        findPlainText(KEY, plaintext, extractedCharacters);
     
-        cntPT=0;
+        findPlainText(KEY, plaintext, extractedCharacters);
+        countPlainText=0;
         for(int i=0;i<plaintext.at(0).size();i++){
             for(int j=0;j<KEY.size();j++)
             {
-                if(i<plaintext.at(j).size()&&cntPT<=cntCT){
-                    characterrr=(char)(plaintext.at(j).at(i).to_ulong());
-                    cout<<characterrr;
-                    cntPT++;
+                if(i<plaintext.at(j).size()&&countPlainText<=countCipherText){
+                    dispCharacter=(char)(plaintext.at(j).at(i).to_ulong());
+                    cout<<dispCharacter;
+                    countPlainText++;
                 }
             }
         }
         cout<<endl;
-   
 }
 
 bitset<4> hex_char_to_bin(char c){
@@ -174,7 +176,8 @@ bitset<4> hex_char_to_bin(char c){
     }
     return bitset<4>("0000");
 }
-vector<bitset<8>> read_file(string filename,int &cntCT){
+
+vector<bitset<8>> read_file(string filename,int &countCipherText){
     fstream file;
     char character1;
     char character2;
@@ -192,47 +195,41 @@ vector<bitset<8>> read_file(string filename,int &cntCT){
             count++;
         }
         cout<<"COUNT: "<<count<<endl;
-        cntCT=count;
+        countCipherText=count;
         file.close();
     }
-    
-    
     return characters;
-    
 }
-
 
 int mostFreq(vector<bitset<8>> col){
     int largest=0;
     int count;
     for(int i=0;i<col.size();i++){
         count=findFrequency(col.at(i),col);
-        if(count>largest) largest=count;
+        if(count>largest)
+        {
+            largest=count;
+        }
     }
     return largest;
 }
+
 void findSpaces(vector<pair<int,int>>&elocations ,vector<pair<int,int>>&spaceLocations,vector<vector<bitset<8>>> extracted){
     int largest;
     pair<int,int>P;
-    //double e=0.118421;
     for(int i=0;i<extracted.size();i++){
         largest=mostFreq(extracted.at(i));
         for(int j=0;j<extracted.at(i).size();j++){
             if(findFrequency(extracted.at(i).at(j), extracted.at(i))==largest)
             {
                     P.first=i;P.second=j;
-                    //cout<<"Space found at "<<P.first<<","<<P.second<<endl;
-                    //cout<<(double)((double)(largest)/extracted.at(i).size())<<endl;
-                
-                
                     cout<<(double)((double)(largest)/(extracted.at(i).size()))<<" Space found at "<<P.first<<","<<P.second<<endl;
                     spaceLocations.push_back(P);
-                
-            
             }
         }
     }
 }
+
 vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters){
     vector<vector<bitset<8>>> temp;
     int pos=0;
@@ -249,6 +246,7 @@ vector<vector<bitset<8>>> extract(int size,vector<bitset<8>> characters){
     }
     return temp;
 }
+
 void display(vector<bitset<8>>A){
     
     for (int i =0; i<A.size(); i++)
@@ -257,6 +255,7 @@ void display(vector<bitset<8>>A){
     }
     
 }
+
 int findFrequency(bitset<8> character,vector<bitset<8>>characters){
     int count=0;
     for(int i=0;i<characters.size();i++){
@@ -281,9 +280,11 @@ int sum(int size,vector<bitset<8>> characters,vector<vector<bitset<8>>> extracte
     }
     return sum;
 }
+
 double calculateIC(int F,int N){
     return (1/(double)(N*(N-1)))*(double)F;
 }
+
 void findPlainText(vector<bitset<8>> KEY,vector<vector<bitset<8>>>& plaintext,vector<vector<bitset<8>>> extractedCharacters){
     for(int i=0;i<KEY.size();i++){
         for(int j=0;j<extractedCharacters.at(i).size();j++){
