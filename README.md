@@ -1,14 +1,14 @@
-Reading the File
+# Reading the File
 The cipher text we were provided with was encoded in hexadecimal, thus we would want to change the values to either decimal or binary in order to allow the operations which would make our job easier when it comes to applying the operations we will have within our program such as XOR which is mainly used and is the backbone of the deciphering.
 
-Structures Used
+# Structures Used
 1.	Using a vector to store the extracted ciphertext after converting the hexadecimal ciphertext into bits using the bitset.
 2.	Using a vector to segregate the ciphertext using a sample of the ciphertext and the characters of the ciphertext.
 3.	We use a function which calculates the Index of Coincidence to find the spike within the sample size allowing us to decide the key size.
 4.	We use the segregate function to place each and every ciphertext character into a column corresponding to the position of the character within the key.
 5.	We also use pairs to store the hexadecimal characters into bits in the vector.
 
-Implementation
+# Implementation
 To imply this terminology of deciphering without knowing the key size, we would first need to figure out the key within the ciphertext. That is done by calculating the Index of Coincidence of all the characters within the ciphertext, and finding a spike in the values, the key size with the first spike is most likely to be the key value.
  
 And in our case as we see we see a spike in the Index of Coincidence in the key size 48, thus we could confirm that the size of the key would be 48 characters.
