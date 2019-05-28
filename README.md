@@ -33,3 +33,6 @@ PartOfPlaintext XOR CipherText = Key
 Once that is completed we will have the final key of the ciphertext, and we can use that final key to XOR it with the ciphertext and get the final plaintext which is readable by the user and consists of no errors.
 
 To conclude, the program cannot be fully automated since we will need to enter the guessing of the part of the plaintext, and for further improvement we would take the input of the part of the plaintext from the user, instead of hard coding as it is done in our case and will need to be changed from file to file. We could also implement a dictionary to guess the missing characters of the plaintext and gain the part of the plaintext which would allow us to get the final key, but would result in making our code and algorithm more complex.
+
+
+![alt text](https://www.researchgate.net/profile/Imam_Riadi/publication/287205397/figure/fig1/AS:307741068414976@1450382596520/Encryption-and-decryption-Process-of-Vigenere-cipher-Description-Pi-Plaintext-Ci.png)
